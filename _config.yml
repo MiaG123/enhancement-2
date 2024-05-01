@@ -1,0 +1,19 @@
+title: Platformer 3.0
+description: "Spring 2024"
+owner_name: Nighthawk Coding 
+github_username: nighthawkcoders
+github_repo: "platformer3x"
+baseurl: "/platformer3x"
+future: true
+remote_theme: jekyll/minima
+minima:
+  social_links:
+    - { platform: github, user_url: "https://github.com/nighthawkcoders/platformer3x"}
+    - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
+    - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" }      
+plugins:
+- jekyll-remote-theme
+header_pages:
+  - navigation/blog.md
+  - navigation/search.html
+  - navigation/about.md
