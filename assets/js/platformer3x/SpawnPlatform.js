@@ -21,11 +21,12 @@ export class SpawnPlatform extends GameObject {
             this.isHidden = true;
             this.size(); // Update size and position
 
-             // this.showDelay = 4000; // Delay of 4 seconds
-        this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
+            // this.showDelay = 4000; // Delay of 4 seconds
+            this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
             setTimeout(() => {
-                this.spawnPlatform();
-            }, this.spawnInterval);
+                this.isHidden = false; // After the  delay, hide the platform
+            this.size(); // Update size and position
+        }, this.spawnInterval);
         }, this.showDelay);
     }
 
@@ -44,7 +45,7 @@ export class SpawnPlatform extends GameObject {
     // Set platform position
     size() {
         // Formula for Height should be on constant ratio, using a proportion of 832
-        const scaledHeight = GameEnv.innerWidth * (1/27);
+        const scaledHeight = GameEnv.innerWidth * (1 / 27);
         const scaledWidth = scaledHeight;  // width of jump platform is 1/10 of height
         const platformX = this.platformX;
         const platformY = (GameEnv.bottom - scaledHeight) * this.platformY;
