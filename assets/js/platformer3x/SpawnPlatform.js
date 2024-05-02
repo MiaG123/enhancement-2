@@ -6,11 +6,11 @@ export class SpawnPlatform extends GameObject {
         super(canvas, image, data);
         this.platformX = xPercentage * GameEnv.innerWidth;
         this.platformY = yPercentage;
-        this.isHidden = false; // Initially show the platform
+        this.isHidden = true; // Initially show the platform
         // this.showDelay = 4000; // Delay of 4 seconds
         this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
         setTimeout(() => {
-            this.isHidden = true; // After the  delay, hide the platform
+            this.isHidden = false; // After the  delay, hide the platform
             this.size(); // Update size and position
         }, this.showDelay);
     }
