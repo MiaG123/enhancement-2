@@ -21,7 +21,8 @@ export class SpawnPlatform extends GameObject {
             this.isHidden = true;
             this.size(); // Update size and position
 
-            // Schedule the next platform spawn
+             // this.showDelay = 4000; // Delay of 4 seconds
+        this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
             setTimeout(() => {
                 this.spawnPlatform();
             }, this.spawnInterval);
