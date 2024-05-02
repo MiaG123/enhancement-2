@@ -2,16 +2,29 @@ import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 
 export class SpawnPlatform extends GameObject {
-    constructor(canvas, image, data, xPercentage, yPercentage) {
+    constructor(canvas, image, data, xPercentage, yPercentage, spawnInterval) {
         super(canvas, image, data);
         this.platformX = xPercentage * GameEnv.innerWidth;
         this.platformY = yPercentage;
-        this.isHidden = true; // Initially show the platform
-        // this.showDelay = 4000; // Delay of 4 seconds
-        this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
+        this.isHidden = true; // Initially hide the platform
+        this.spawnInterval = spawnInterval; // Interval between platform spawns
+        this.spawnPlatform(); // Start spawning platforms
+    }
+
+    spawnPlatform() {
+        // Show the platform
+        this.isHidden = false;
+        this.size(); // Update size and position
+
+        // Hide the platform after a delay
         setTimeout(() => {
-            this.isHidden = false; // After the  delay, hide the platform
+            this.isHidden = true;
             this.size(); // Update size and position
+
+            // Schedule the next platform spawn
+            setTimeout(() => {
+                this.spawnPlatform();
+            }, this.spawnInterval);
         }, this.showDelay);
     }
 
@@ -22,7 +35,9 @@ export class SpawnPlatform extends GameObject {
 
     // Draw position is always 0,0
     draw() {
-        this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
+        if (!this.isHidden) {
+            this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
+        }
     }
 
     // Set platform position
@@ -38,11 +53,16 @@ export class SpawnPlatform extends GameObject {
         this.collisionWidth = scaledWidth;
         //this.canvas.width = this.width;
         //this.canvas.height = this.height;
-        this.canvas.style.width = `${scaledWidth}px`;
-        this.canvas.style.height = `${scaledHeight}px`;
-        this.canvas.style.position = 'absolute';
-        this.canvas.style.left = `${platformX}px`;
-        this.canvas.style.top = `${platformY}px`;
+        if (!this.isHidden) {
+            this.canvas.style.width = `${scaledWidth}px`;
+            this.canvas.style.height = `${scaledHeight}px`;
+            this.canvas.style.position = 'absolute';
+            this.canvas.style.left = `${platformX}px`;
+            this.canvas.style.top = `${platformY}px`;
+        } else {
+            // Hide the platform
+            this.canvas.style.display = 'none';
+        }
     }
 }
 
