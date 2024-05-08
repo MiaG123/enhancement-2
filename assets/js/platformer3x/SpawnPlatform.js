@@ -43,6 +43,7 @@ export class SpawnPlatform extends GameObject {
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = `${platformX}px`;
         this.canvas.style.top = `${platformY}px`;
+        this.canvas.style.display = this.isHidden ? 'none' : 'block';
     }
 }
 
