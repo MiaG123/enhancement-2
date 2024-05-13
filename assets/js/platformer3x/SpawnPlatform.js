@@ -6,18 +6,56 @@ export class SpawnPlatform extends GameObject {
         super(canvas, image, data);
         this.platformX = xPercentage * GameEnv.innerWidth;
         this.platformY = yPercentage;
-        this.isHidden = false; // Initially show the platform
-        // this.showDelay = 4000; // Delay of 4 seconds
-        this.showDelay = Math.floor(Math.random() * 9000) + 1000; // Random delay between 1 to 10 seconds (in milliseconds)
-        setTimeout(() => {
-            this.isHidden = true; // After the  delay, hide the platform
-            this.size(); // Update size and position
-        }, this.showDelay);
+        this.state = "hidden"; // Initial state
+        this.collision = true;
+        this.size();
+    }
+
+    // Finite State Machine methods
+    show() {
+        this.state = "visible";
+        this.canvas.style.visibility = "visible";
+    }
+
+    hide() {
+        this.state = "hidden";
+        this.canvas.style.visibility = "hidden";
     }
 
     // Required, but no update action
     update() {
-        //console.log(this.platformY)
+        this.collisionChecks();
+    }
+
+    collisionAction() {
+        // Collision only detects mario and applies to the item block
+        if (this.collisionData.touchPoints.other.id === "player" && this.name === "itemBlock") {
+            if (this.relativeX === 0 || this.relativeX === this.canvas.width) {
+                if (this.relativeX === 0) {
+                    GameControl.startRandomEvent();
+                    //console.log("randomEventtriggered", GameControl.randomEventId);
+                }
+                this.relativeX = -1 * this.canvas.width;
+            } else if (this.relativeX === "") {
+                this.relativeX = 0;
+            }
+    
+            // Check if the player is colliding with the item block
+            if (this.isColliding(player, this)) {
+                // Set the item block to be visible
+                this.show();
+            }
+        }
+    }
+    
+    isColliding(obj1, obj2) {
+        var rect1 = obj1.getBoundingClientRect();
+        var rect2 = obj2.getBoundingClientRect();
+
+        return !(rect1.right < rect2.left ||
+                 rect1.left > rect2.right ||
+                 rect1.bottom < rect2.top ||
+                 rect1.top > rect2.bottom);
     }
 
     // Draw position is always 0,0
@@ -43,7 +81,7 @@ export class SpawnPlatform extends GameObject {
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = `${platformX}px`;
         this.canvas.style.top = `${platformY}px`;
-        this.canvas.style.display = this.isHidden ? 'none' : 'block';
+        this.hide(); // Initially hide the platform
     }
 }
 
