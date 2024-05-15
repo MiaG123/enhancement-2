@@ -63,6 +63,7 @@ export class GameEnv {
     static transitionHide = false;
     static gravity = 3;
     static destroyedMushroom = false;
+    static destroyedPlatform = false;
     static playMessage = false;
     static difficulty = "normal";
     static innerWidth;

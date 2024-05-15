@@ -229,7 +229,17 @@ const GameSetup = {
           height: 204,
           scaleSize: 80,
           speedRatio: 0.7,
-          hitbox: { widthPercentage: 0.4, heightPercentage: -0.2}
+          hitbox: { widthPercentage: 0.4, heightPercentage: -0.2},
+        SpawnPlatform: {
+        src: "/images/platformer/platforms/brick_wall.png",
+        sizeRatio: 83.2,
+        widthRatio: 0.5,
+        heightRatio: 1.0,
+        width: 204,
+        height: 204,
+        scaleSize: 80,
+        speedRatio: 0.7,
+        hitbox: { widthPercentage: 0.4, heightPercentage: -0.2}}
         }
       },
       backgrounds: {
@@ -332,6 +342,12 @@ const GameSetup = {
         },
         mushroom: {
           src: "/images/platformer/platforms/mushroom.png",
+          width: 200,
+          height: 180,
+          hitbox: { widthPercentage: 0.0, heightPercentage: 0.2}
+        },
+        chocolatefrog: {
+          src: "/images/platformer/platforms/chocolatefrog.jpg",
           width: 200,
           height: 180,
           hitbox: { widthPercentage: 0.0, heightPercentage: 0.2}
@@ -494,6 +510,7 @@ const GameSetup = {
                 { name: 'quidditch', id: 'background', class: Background, data: this.assets.backgrounds.quidditch },
                 { name: 'turf', id: 'platform', class: Platform, data: this.assets.platforms.turf },
                 //blocks on left side of wall/tower
+                { name: 'chocolatefrog', id: 'chocolatefrog', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.49 },
                 { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.cobblestone, xPercentage: 0.2, yPercentage: 0.90 },
                 { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.cobblestone, xPercentage: 0.28, yPercentage: 0.81 },
                 { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.cobblestone, xPercentage: 0.36, yPercentage: 0.72 },
